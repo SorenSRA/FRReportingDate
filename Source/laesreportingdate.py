@@ -8,20 +8,21 @@ from os.path import join
 from os import listdir
 import pandas as pd
 
-#Ignore UserWarning fra Openpyxl vedr. Data-validation
+# Ignore UserWarning fra Openpyxl vedr. Data-validation
 import warnings
+
 warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
 
-#Opsaetning og import af egne moduler
+# Opsaetning og import af egne moduler
 import sys
-sys.path.append(r'C:\Filkassen\PythonMm\VSCode_projects\LIFEOpsaetning')
+
+sys.path.append(r"C:\Filkassen\PythonMm\VSCode_projects\LIFEOpsaetning")
 
 import partneroversigt as po
 
 
-
 def hent_fr(mappe_path):
-    suffix = '.xlsx'
+    suffix = ".xlsx"
     file_list = listdir(mappe_path)
     xlsx_list = []
     for file in file_list:
@@ -31,19 +32,20 @@ def hent_fr(mappe_path):
 
 
 def hent_ult_periode(file_path):
-    df = pd.read_excel(file_path, sheet_name='Individual Cost Statement', header=None)
+    df = pd.read_excel(file_path, sheet_name="Individual Cost Statement", header=None)
     ult_celle = (3, 4)
     return df.iloc[ult_celle]
-    
 
 
 def oversigt(project):
     for folder in project.distspec.values():
-        mappe_path = join(project.pathroot, project.pathbase, folder, project.pathspec)
+        mappe_path = join(
+            project.pathroot, project.pathbase, folder, project.dirname_fr
+        )
         xlsx_list = hent_fr(mappe_path)
         print(folder)
         for file in xlsx_list:
-            print(f'****{hent_ult_periode(file)}')
+            print(f"****{hent_ult_periode(file)}")
 
 
 def create_oversigt(pr):
@@ -57,9 +59,9 @@ def create_oversigt(pr):
         case _:
             print("Forkert angivelse af projekt: Gyldige arg.: Nat - Open - For")
             return
-        
+
     oversigt(project)
 
 
-if __name__ == '__main__':
-    create_oversigt('open')
+if __name__ == "__main__":
+    create_oversigt("open")

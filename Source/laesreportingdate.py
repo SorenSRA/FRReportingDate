@@ -14,11 +14,7 @@ import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
 
 # Opsaetning og import af egne moduler
-import sys
-
-sys.path.append(r"C:\Filkassen\PythonMm\VSCode_projects\LIFEOpsaetning")
-
-import partneroversigt as po
+from my_package import partneroversigt as po
 
 
 def hent_fr(mappe_path):
@@ -64,4 +60,4 @@ def create_oversigt(pr):
 
 
 if __name__ == "__main__":
-    create_oversigt("open")
+    create_oversigt("nat")
